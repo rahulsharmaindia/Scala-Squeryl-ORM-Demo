@@ -7,7 +7,7 @@ val buildSettings = Seq(
   scalaVersion := "2.11.12"
 )
 
-javacOptions := Seq("-source", "1.6", "-target", "1.6")
+javacOptions := Seq("-source", "1.8", "-target", "1.8")
 
 scalacOptions ++= Seq(
   "-unchecked",
@@ -33,9 +33,9 @@ Seq(Compile, Test).flatMap(c =>
 )
 
 lazy val projDeps = Seq(
-  //h2,
- cglib,
-  postgresql,
+  h2,
+ //cglib,
+  //postgresql,
   squeryl
 		)
 
@@ -48,6 +48,7 @@ lazy val squerylDemo = (project in file("."))
 libraryDependencies ++= {
   Seq("org.scalatest" %% "scalatest" % "3.0.6-SNAP5" withSources())
 }
+/*
 libraryDependencies ++= Seq(
   "cglib" % "cglib-nodep" % "3.2.10",
   "com.h2database" % "h2" % "1.4.197" % "provided",
@@ -57,4 +58,4 @@ libraryDependencies ++= Seq(
   "org.apache.derby" % "derby" % "10.11.1.1" % "provided",
   "org.xerial" % "sqlite-jdbc" % "3.25.2" ,
   "org.json4s" %% "json4s-scalap" % "3.6.2"
-)
+)*/

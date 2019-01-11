@@ -2,4 +2,5 @@
 lib_managed
 minimalexample.iml
 target
+project/target
 

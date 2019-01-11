@@ -16,11 +16,11 @@ import org.scalatest.Matchers
 
 object Main {
   def main(args: Array[String]) {
-    Class.forName("org.postgresql.Driver");
+    Class.forName("org.h2.Driver");
     SessionFactory.concreteFactory = Some(()=>
       Session.create(
-        java.sql.DriverManager.getConnection("jdbc:postgresql://localhost:5432/orders", "pos", "pos"),
-        new PostgreSqlAdapter)
+        java.sql.DriverManager.getConnection("jdbc:h2:~/test", "sa", ""),
+        new H2Adapter)
     )
 
     inTransaction {
@@ -30,10 +30,10 @@ object Main {
       create
       printDdl
 
-      authors.insert(new Author(1, "JRR", "Tolkien", None))
-      authors.insert(new Author(2, "Jane", "Austen", None))
-      authors.insert(new Author(3, "Philip", "Pullman", None))
-      books.insert(new Book( "The Lord of the Rings", 1, None))
+      /*authors.insert(new Author( "JRR", "Tolkien", None))
+      authors.insert(new Author("Jane", "Austen", None))
+      authors.insert(new Author( "Philip", "Pullman", None))
+      */books.insert(new Book( "The Lord of the Rings", 1, None))
       books.insert(new Book( "Pride and Prejudice", 2, None))
       books.insert(new Book( "His Dark Materials", 3, None))
 
@@ -47,25 +47,27 @@ object Main {
     }
   }
 }
-
-class Author(val id: Long,
-             val firstName: String,
+/*@SerialVersionUID(45646545664L)
+class Author(val firstName: String,
 		         val lastName: String,
-		         val email: Option[String]) extends KeyedEntity[Long]
+		         val email: Option[String]) extends MusicDbObject with java.io.Serializable {
+  def this() = this("fname","lname",None)
+}*/
 
 class MusicDbObject extends KeyedEntity[Long] {
-  val id: Long = 0
+  val id: Long = 0L
   var timeOfLastUpdate = new Timestamp(System.currentTimeMillis)
 }
-@SerialVersionUID(7397250366604823353L)
+
+//@SerialVersionUID(876786786786L)
 class Book(var title: String,
            var authorId: Long,
-           val coAuthorId: Option[Long]) extends MusicDbObject with java.io.Serializable {
+           val coAuthorId: Option[Long]) extends MusicDbObject  {
 
   def this() = this("default title",0L,None)
 }
 
 object Library extends Schema {
-  val authors = table[Author]
+ // val authors = table[Author]
   val books = table[Book]
 }
