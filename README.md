@@ -1,5 +1,5 @@
 # Squeryl-Demo
-Basic Squeryl Example
+Basic Scala ORM Squeryl Example
 
 STEPS to SETUP PROJECT
 
