@@ -1,4 +1,4 @@
-# Squeryl-Demo-ISSUE-259
+# Squeryl-Demo
 Basic Squeryl Example
 
 STEPS to SETUP PROJECT
